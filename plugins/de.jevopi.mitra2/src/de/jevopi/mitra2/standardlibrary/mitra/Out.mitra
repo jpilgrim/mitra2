@@ -1,0 +1,4 @@
+package mitra;
+module Out;
+
+called println(any obj) java(class="de.jevopi.mitra2.standardlibrary.mitra.Out");

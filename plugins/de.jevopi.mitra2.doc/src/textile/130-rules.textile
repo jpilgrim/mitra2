@@ -1,0 +1,35 @@
+h1. Rules
+
+h2. Parameter Declarations
+
+h2. Execution Modifiers
+
+h2. Traced Rules
+
+h2. Overloading and Overriding
+
+h2. Triggers
+
+h2. Java Methods
+
+It is possible to write rules with Java. In that case, the Mitra rule declaration refers to the associated Java class using the keyword @java@ with according properties.
+
+The following properties are supported:
+* class: required, fully qualified name of Java class containing the method
+* method: optional, name of Java method of class. If this property is not specified, the name of the rule is assumed to equal the Java method.
+
+Example:
+
+bc.. 
+called display(String message) native(class="my.tools.MitraTools");
+
+p. This declaration refers to a Java method @void my.tools.MitraTools(String s)@. This method must be declared public in order to be accessible from Mitra, and of course the class must be present in the Java classpath.
+
+
++TODO check+
+Mitra directly passes the arguments to the method, that is all primitive types are converted to their Java types, collections to Java collections, and reference types to @EObjects@. The returned values of the Java method are converted back into Mitra tools, as specified in the rule declaration.
+
+In some cases, a rule needs information about the current context. If the Java class implements the interface
+@de.jevopi.mitra2.api.INativeMitraModule@, then this context is set via method @setContext(IMitraContext)@. Note that this is only necessary if the rule needs the context.
+
++TODO+ If the rule requires multi return parameters, then the Java implementation must return an instance of @de.jevopi.mitra2.api.IMultiReturn@.

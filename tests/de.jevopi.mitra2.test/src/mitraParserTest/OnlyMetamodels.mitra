@@ -1,0 +1,5 @@
+module OnlyMetamodels 
+
+metamodel ecore MM1(ecoreFile="simpleER.ecore");
+metamodel ecore MM2(ecoreFile="simpleUML.ecore");
+// metamodel uml2 MM3();

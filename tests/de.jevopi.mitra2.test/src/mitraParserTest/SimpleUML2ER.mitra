@@ -1,0 +1,48 @@
+module SimpleUML2ER
+
+metamodel ecore SimpleUML ( ecoreFile="simpleUML.ecore" );
+metamodel ecore SimpleER ( ecoreFile="simpleER.ecore" );
+
+
+called test() {
+    SimpleUML::Package package;
+    package = new SimpleUML::Package();
+    package.name = "Test";
+    SimpleUML::Class class;
+    /* 4 */ class = new SimpleUML::Class();
+    class.name = "ClassA";
+    package.ownedElements += class;
+    class = new SimpleUML::Class();
+    class.name = "ClassB";
+    package.ownedElements += class;
+    
+    SimpleER::Schema schema
+    package2schema(package, schema);
+}
+
+
+
+called package2schema(from SimpleUML::Package package): (create SimpleER::Schema schema) {
+    schema.name = package.name;
+    SimpleUML::Class class;
+    SimpleER::Entity entity;
+    int i;
+    for (i = 0 ; i<package.ownedElements.size(); i++) {
+      // explicit cast is checked during runtime
+      if (package.ownedElements->at(i) instanceof SimpleUML::class) {
+          class = (SimpleUML::Class) package.ownedElements->at(i);
+          class2table(class, entity);
+          schema.entities += entity;
+      }
+    }
+    
+//		dump(schema);
+}  
+
+called class2table(from SimpleUML::Class class): (create SimpleER::Entity entity) {
+    entity.name = class.name;
+    // todo: copy attributes
+}
+
+// called dump(any object) native(class="mitra.EMFDump");
+

@@ -1,0 +1,44 @@
+module FacultyTest
+
+
+called test() {
+    int r;
+    
+    fac(10, r);
+    if (r == 3628800) {
+        out("Yeah, mitra can calculate the faculty of 10: " + r);
+    } else {
+        out("10! = 3628800 =?= mitra result: " + r);
+    }
+    
+    int y;
+    y = 2;
+    
+    real pi;
+    real x;
+    pi = 3.14; 
+    x=1.0;
+    if (pi>x) {
+        out("x");
+    }
+    
+}
+
+called fac(int i): (return int result) {
+    if (i==1) {
+        result = 1;
+        return;
+    } 
+    if (i>1) {
+        fac(i-1, result); 
+           result = i*result;
+           return;
+    }
+    out("Error: i must be greater or equal 1");
+}
+                       
+           
+
+called out(String message) native(class="mitra.Log");
+called out(int message) native(class="mitra.Log");
+

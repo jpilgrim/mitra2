@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.jevopi.mitra2/src-gen" editDirectory="/de.jevopi.mitra2.edit/src"
+    editorDirectory="/de.jevopi.mitra2.editor/src" modelPluginID="de.jevopi.mitra2"
+    forceOverwrite="true" modelName="Mitra" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="de.jevopi.mitra2.edit"
+    editorPluginID="de.jevopi.mitra2.editor">
+  <genPackages prefix="Mitra" basePackage="de.jevopi.mitra2" disposableProviderFactory="true"
+      ecorePackage="Mitra.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//VisibilityModifier">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//VisibilityModifier/public"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//VisibilityModifier/private"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//ExecutionModifier">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ExecutionModifier/called"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ExecutionModifier/abstract"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ExecutionModifier/manual"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ExecutionModifier/auto"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ExecutionModifier/confirm"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//ParameterModifier">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ParameterModifier/use"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ParameterModifier/from"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ParameterModifier/into"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ParameterModifier/return"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//ParameterModifier/create"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//PrimitiveTypeSpec">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/void"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/any"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/string"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/int"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/real"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PrimitiveTypeSpec/type"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//CollectionTypeSpec">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//CollectionTypeSpec/Collection"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//CollectionTypeSpec/Set"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//CollectionTypeSpec/OrderedSet"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//CollectionTypeSpec/Bag"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//CollectionTypeSpec/Sequence"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//BooleanOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//BooleanOperator/and"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//BooleanOperator/or"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//BooleanOperator/andsc"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//BooleanOperator/orsc"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//EqualityOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//EqualityOperator/eq"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//EqualityOperator/neq"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//RelationalOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//RelationalOperator/lt"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//RelationalOperator/gt"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//RelationalOperator/leq"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//RelationalOperator/geq"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//MathOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//MathOperator/add"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//MathOperator/sub"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//MathOperator/mul"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//MathOperator/div"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//UnaryMathOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//UnaryMathOperator/plus"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//UnaryMathOperator/minus"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//AssignmentOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AssignmentOperator/set"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AssignmentOperator/add"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AssignmentOperator/sub"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//PPOperator">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PPOperator/NULL"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PPOperator/inc"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//PPOperator/dec"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Mitra.ecore#//AnnotationTargetSpec">
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AnnotationTargetSpec/module"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AnnotationTargetSpec/rule"/>
+      <genEnumLiterals ecoreEnumLiteral="Mitra.ecore#//AnnotationTargetSpec/parameter"/>
+    </genEnums>
+    <genClasses ecoreClass="Mitra.ecore#//Module">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Module/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Module/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Module/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Module/metamodelDeclarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Module/annotationDefinitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Module/ruleDeclarations"/>
+      <genOperations ecoreOperation="Mitra.ecore#//Module/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ModuleReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//ModuleReference/module"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//MetamodelDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//MetamodelDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//MetamodelDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//MetamodelDeclaration/properties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//MetamodelDeclaration/replaces"/>
+      <genOperations ecoreOperation="Mitra.ecore#//MetamodelDeclaration/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Property/value"/>
+      <genOperations ecoreOperation="Mitra.ecore#//Property/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RuleDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/visibility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/exec"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/traced"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/stealth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/virtual"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/multi"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RuleDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/formalParameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/returnParameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/implementedRules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/overriddenRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/excludingRules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/trigger"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/javaSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleDeclaration/body"/>
+      <genOperations ecoreOperation="Mitra.ecore#//RuleDeclaration/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RuleReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleReference/ruleDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//SimpleRuleReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//SimpleRuleReference/parameterReferences"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//SimpleRuleReference/returnReferences"/>
+      <genOperations ecoreOperation="Mitra.ecore#//SimpleRuleReference/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//QualifiedRuleReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//QualifiedRuleReference/parameterReferences"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//QualifiedRuleReference/returnReferences"/>
+      <genOperations ecoreOperation="Mitra.ecore#//QualifiedRuleReference/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ParameterReference"/>
+    <genClasses ecoreClass="Mitra.ecore#//SimpleParameterReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//SimpleParameterReference/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//SimpleParameterReference/name"/>
+      <genOperations ecoreOperation="Mitra.ecore#//SimpleParameterReference/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//QualifiedParameterReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//QualifiedParameterReference/vardecl"/>
+      <genOperations ecoreOperation="Mitra.ecore#//QualifiedParameterReference/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Trigger">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Trigger/triggerRules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Trigger/with"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Trigger/when"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//JavaSpec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//JavaSpec/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Parameter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Parameter/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Parameter/modifier"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Parameter/vardecl"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//FormalParameter">
+      <genOperations ecoreOperation="Mitra.ecore#//FormalParameter/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ReturnParameter">
+      <genOperations ecoreOperation="Mitra.ecore#//ReturnParameter/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Type"/>
+    <genClasses ecoreClass="Mitra.ecore#//ReferenceType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//ReferenceType/metamodelDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//ReferenceType/eClassifier"/>
+      <genOperations ecoreOperation="Mitra.ecore#//ReferenceType/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//PrimitiveType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//PrimitiveType/primitiveType"/>
+      <genOperations ecoreOperation="Mitra.ecore#//PrimitiveType/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//CollectionType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//CollectionType/collectionType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//CollectionType/typePar"/>
+      <genOperations ecoreOperation="Mitra.ecore#//CollectionType/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Block">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Block/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//BlockStatement"/>
+    <genClasses ecoreClass="Mitra.ecore#//Statement"/>
+    <genClasses ecoreClass="Mitra.ecore#//LocalVariableDeclarationStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//LocalVariableDeclarationStatement/localVariableDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//LocalVariableDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//LocalVariableDeclaration/vardecl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//LocalVariableDeclaration/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//VarDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//VarDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//VarDeclaration/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//TypedVarDeclaration"/>
+    <genClasses ecoreClass="Mitra.ecore#//InferredVarDeclaration"/>
+    <genClasses ecoreClass="Mitra.ecore#//ExpressionStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ExpressionStatement/statementExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//StatementExpression"/>
+    <genClasses ecoreClass="Mitra.ecore#//EmptyStatement"/>
+    <genClasses ecoreClass="Mitra.ecore#//ReturnStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ReturnStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//IfStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//IfStatement/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//IfStatement/trueStatement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//IfStatement/elseStatement"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//WhileStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//WhileStatement/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//WhileStatement/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//DoStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//DoStatement/statement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//DoStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ForInit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForInit/statementExpressions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForInit/varDeclarations"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ForUpdate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForUpdate/statementExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//ForStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForStatement/loopVariable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForStatement/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForStatement/forInit"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForStatement/forUpdate"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ForStatement/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//LoopVariable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//LoopVariable/vardecl"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//BreakStatement"/>
+    <genClasses ecoreClass="Mitra.ecore#//ThrowStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ThrowStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//TryStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//TryStatement/tryBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//TryStatement/catches"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//TryStatement/finallyBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Catch">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Catch/formalParameter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Catch/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Expression"/>
+    <genClasses ecoreClass="Mitra.ecore#//TerminalExpression"/>
+    <genClasses ecoreClass="Mitra.ecore#//Literal"/>
+    <genClasses ecoreClass="Mitra.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//StringLiteral/stringValue"/>
+      <genOperations ecoreOperation="Mitra.ecore#//StringLiteral/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//IntLiteral/intValue"/>
+      <genOperations ecoreOperation="Mitra.ecore#//IntLiteral/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RealLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RealLiteral/floatValue"/>
+      <genOperations ecoreOperation="Mitra.ecore#//RealLiteral/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//BooleanLiteral/booleanValue"/>
+      <genOperations ecoreOperation="Mitra.ecore#//BooleanLiteral/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//NullLiteral"/>
+    <genClasses ecoreClass="Mitra.ecore#//ClassInstanceCreationExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ClassInstanceCreationExpression/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//ClassInstanceCreationExpression/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RuleInvocation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleInvocation/ruleDeclaration"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RuleInvocation/arguments"/>
+      <genOperations ecoreOperation="Mitra.ecore#//RuleInvocation/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RuleInvocationSuper">
+      <genOperations ecoreOperation="Mitra.ecore#//RuleInvocationSuper/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Feature/name"/>
+      <genOperations ecoreOperation="Mitra.ecore#//Feature/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//MethodInvocation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//MethodInvocation/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//FeatureMethodInvocation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//FeatureMethodInvocation/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//NativeOperationInvocation"/>
+    <genClasses ecoreClass="Mitra.ecore#//MetamodelFeature"/>
+    <genClasses ecoreClass="Mitra.ecore#//FeatureField">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//FeatureField/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//VariableAccess">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//VariableAccess/prefixOperator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//VariableAccess/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//VariableAccess/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//VariableAccess/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//VariableAccess/postfixOperator"/>
+      <genOperations ecoreOperation="Mitra.ecore#//VariableAccess/toString"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//StaticAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//StaticAccess/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//StaticAccess/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//StaticAccess/features"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//AnnotationsDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationsDefinition/annotationDecls"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//AnnotationDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationDecl/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationDecl/targets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationDecl/valuetype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationDecl/many"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationDecl/required"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationDecl/default"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationDecl/propertyDecls"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//AnnotationPropertyDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationPropertyDecl/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationPropertyDecl/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//AnnotationPropertyDecl/required"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationPropertyDecl/default"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Annotation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//Annotation/decl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Annotation/values"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Annotation/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//AnnotationProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationProperty/decl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//AnnotationProperty/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//Assignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Assignment/lhs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//Assignment/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//Assignment/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//IteratorExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//IteratorExpression/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//IteratorExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//BooleanExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//BooleanExpression/lhs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//BooleanExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//BooleanExpression/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//EqualityExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//EqualityExpression/lhs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//EqualityExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//EqualityExpression/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//RelationalExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RelationalExpression/lhs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//RelationalExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//RelationalExpression/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//MathExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//MathExpression/lhs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//MathExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//MathExpression/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//UnaryCastExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//UnaryCastExpression/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//UnaryCastExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//UnaryBooleanExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//UnaryBooleanExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//UnaryMathExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Mitra.ecore#//UnaryMathExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//UnaryMathExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Mitra.ecore#//InstanceOfExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//InstanceOfExpression/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Mitra.ecore#//InstanceOfExpression/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

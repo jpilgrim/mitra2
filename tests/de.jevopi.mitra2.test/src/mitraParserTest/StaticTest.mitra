@@ -1,0 +1,18 @@
+module StaticTest 
+
+metamodel ecore:SimpleER ( ecoreFile="src/models/simpleER.ecore" );
+
+
+called test() {
+    var SimpleER::Type t = SimpleER.Type#readable;
+    if (t == SimpleER::Type#hidden) {
+        log("Error: " + defaultProperty); 
+    } else {
+        log("OK: " + defaultProperty);
+    }
+}
+
+
+
+called log(String message) native(class="mitra.Log");
+	

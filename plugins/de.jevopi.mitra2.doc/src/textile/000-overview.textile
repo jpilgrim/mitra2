@@ -1,0 +1,141 @@
+h1. Overview
+
+Mitra is an operational model-to-model transformation language. The main features of Mitra include
+
+* Java-like syntax of most statements and expressions
+* OCL-like collections supporting iterator expressions
+* reflection operations and reflecive expressions
+* multi-method (also known as polymorphic dispatching)
+* persistable trace model, enabling reentrant transformations
+* semi-automatic transformation support with manually called and automatically triggered rules
+* module based composition of transformations
+* support for native (Java) rules
+
+Mitra comes with 
+
+* an interpreter
+* an Xtext based editor with state-of the art features such as content assist, quickfixes, and cross references
+* a graphical debugger based on the Eclipse debugging API
+
+Providing an interpreter instead of a compiler has the advantage of being able to debug transformations on models currently opened in active editor windows. Since no new VM has to be started, the transformation can actually operate on the opened models, which makes changes directly visible in your model editor (assuming the editor supports view updates based on model changes).
+
+Mitra supports ecore-based models (i.e., the ecore metamodel), especially models based on the Eclipse UML2 implementation.
+
+h2. Mitra language in a nutshell
+
+Let's have a look at a short example transformation, a snippet from the famous schema-to-classes transformation. The example is slightly modified to show some Mitra features. All language features are explained in detail later on, this section should give you a first impression of the language.
+
+Every Mitra file has to start with an optional @package@  name and a required @module@  name, quite similar to Java.
+
+
+bc..  
+ 1.  package mitra:examples:schema2classes;
+ 2.  module SchemaToClasses;
+
+p. Since Mitra is a typed language, the @metamodel@(s) (defining the types) are to be declared at the beginning of a module (lines 4. ad 5.), unless they were not declared in an imported module).
+
+bc.. 
+ 3.  metamodel ecore er(ecoreFile="schema.ecore");
+ 4.  metamodel ecore oo(ecoreFile="classes.ecore");
+
+p. Every module consists of rules which are the Mitra pendant to functions in other languages.  There is no such thing as a main or entry method, instead almost every rule can server as an entry rule. This rule has then to be selected in the launch configuration or ant task. Here is our first rule, transforming a scheme into a package:
+
+bc.. 
+ 5.  called traced schemeToPackage(from er::Schema schema): (create oo::Package pckg) {
+ 6.  	package.name = schema.name;
+ 7.  	for (er::Entity entity: schema.entities)) {
+ 8.  		entityToClass(entity, pckg);
+ 9.  	}
+10.  }
+
+p. Rules have, similar to Java methods, input arguments. However, different to Java, they can also have several return parameters. In the example we have not used that (examples are given later on), but it explains the varying syntax of rule parameter declarations.
+Rules can be marked as @traced@ . This causes a trace to be created (which could be saved in order to be available when the program is run again or to 3rd party tools). Also, if a traced rule is called twice with the same input arguments, it is only executed once. 
+
+bc.. 
+11.  called traced entityToClass(from er::Entity entity, into oo::Package pckg): (create oo::Class class) {
+12.  	class.name = entity.name;
+13.  	pckg.contents->add(class);
+14.  	for (attribute: entity.attributes->select(v|v.name!="ID")) {
+15.  		attributeToField(attribute, entity);
+16.  	}
+17.  }
+
+p. Like OCL, Mitra distinguishes between members of a type declared in the metamodel (e.g., @class.name@  in line 12), and native methods (e.g., @contents->add(..)@  in line 13). For model members, Mitra uses the known dot-notation, native methods are separated with "->" just as in OCL. 
+The loop variable of the extended for loop in line 14 does not declare a type, as this type is automatically inferred from the loop expression. This is also true for the OCL-like iterator expression used in the native operation @select@ in the same line. In general, types cannot be inferred, but only in these two cases. The select operation here simply filters out all attributes which name is "ID".
+
+Let's also have a closer look at the parameter declarations. Input parameters can be specified with the modifiers @from@, @into@, and @use@ (the default modifier) which is basically a hint for the trace created by that rule. The default return parameter modifier is @return@. In the example, almost all return parameters are marked with @create@, which automatically causes Mitra to create a new instance of the parameter. We could replace @create@ with @return@ and explicitly initialize the return parameter, e.g., by calling the constructor just as in Java.  
+
+Note that Mitra itself does not support the definition of classes, yet it provide some object-oriented features based on the object-oriented properties of the metamodels. The following rule is declared @virtual@ in order to be "overrideable" by other rules.
+
+bc.. 
+18.  called virtual traced attributeToField
+19.  		(from er::Attribute attribute, into oo::Class class): 
+20.  		(create oo::Field field) {
+21.  	field.name = attribute.name;
+22.  	class.fields->add(field);
+23.  }
+
+p. This rule is now overridden by the next rule:
+
+bc.. 
+24.  called keyattributeToField
+25.  		(from er::KeyAttribute attribute, into oo::Class class): 
+26.  		(return oo::Field field)
+27.  	overrides 
+28.  		attributeToField(er::Attribute, oo::Class class): (oo::Field field) {
+29.  	field = super;
+30.  	field.name += "Key";	
+31.  }
+
+p. Since Mitra does not use classes, overriding a rule is done by explicitly overriding it with @overrides@ (line 27). Note that the rule names do not have to be equal, it is even possible to have different number of arguments. However, the parameters used in the overriding rule must be subtypes of the parameter types of the overridden rule. Dynamically binding a rule based on its parameter types is called multi method or polymorphic dispatching.
+Inside an overriding rule the overridden rule can be called with @super@. The arguments passed to the overridden rule are automatically passed to the super rule. 
+
+
+One of the most sophisticated features of Mitra is the use of triggers, as shown in the next rule:
+
+bc.. 
+32.  auto traced relationToField
+33.          (from er::Relation relation, into oo::Class class):
+34.          (create oo:Reference field)
+35.      trigger
+36.          entityToClass(er::Entity sourceEntity, oo::Package pckg): (oo::Class class),
+37.          entityToClass(er::Entity targetEntity, oo::Package pckg): (oo::Class targetClass)
+38.      with {
+39.          for (rel: ((er::Schema) sourceEntity->container()).relations
+40.                  ->select(v|v.source==sourceEntity && v.target==targetEntity)) {
+41.              relation = rel;
+42.              break;
+43.          }
+44.      } when (relation!=null) {
+45.      field.name = relation.name;
+46.      field.type = targetClass;
+47.      class.fields->add(field);
+48.  }
+
+p. This rule is not called by another rule, but invoked automatically, as indicated by the execution modifier @auto@. This rule is not called by some other rules, instead it is triggered by the two rules specified in lines 36 and 37. Whenever a trigger rule is executed, the Mitra engine evaluates whether to execute the triggered rule or not. There are some implicit constraints defined by matching names in the @trigger@  definition (e.g., the pckg must be equal in both triggered rules, see lines 36./37.), and explicit constraints defined in the @when@ -clause (line. 44). The variable used in the when-clause (and which happens to be an input parameter as well, see line 33.) is set in the @with@ -section.
+ 
+Although there often exists "nicer" solutions, type casting is sometimes easier to implement and it is supported by Mitra as well (in line 39. the container is casted into a Schema).
+
+Mitra supports a lot of constructs for reflection. Besides some special native operations (such as @container()@ , line 39.), so called reflection expressions are supported (e.g. @String s = somevar.<< fieldname>>@ ).
+
+Note that there often exists several solutions to a transformation problem. E.g., in the listing relations are transformed using a automatically invoke rule. Alternatively, one could have iterate over all relations contained in the schema, similar to the loop in lines 14-16. Both solutions have several advantages and disadvantages. Some aspects are discussed later on. 
+
+
+h2. Mitra IDE in a nutshell
+
+* Editor
+** Type Checking and other static checks
+** Cross-references
+** Content-assist
+** Quickfixes
+* Launching
+** Eclipse launch configuration
+** TODO Mitra control panel
+** TODO Ant task
+** TODO MWE2 fragment
+* Graphical Debugger
+** Toggle breakpoints in editor
+** Stacktrace and variable view
+** Stepwise execution
+** TODO Live view of performed changes
+

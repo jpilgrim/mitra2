@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/de.jevopi.mitra2_0.1.0.qualifier.jar" id="de.jevopi.mitra2" version="0.1.0.qualifier">
+      <category name="Mitra2"/>
+   </feature>
+   <category-def name="Mitra2" label="Mitra2">
+      <description>
+         The Mitra2 model-to-model transformation language.
+      </description>
+   </category-def>
+</site>

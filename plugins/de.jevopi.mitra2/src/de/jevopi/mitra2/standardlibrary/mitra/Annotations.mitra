@@ -1,0 +1,22 @@
+package mitra;
+
+module Annotations;
+
+annotation SuppressWarnings {
+	self String* required	
+};
+
+annotation Deprecated (module, rule) {
+	self String = ""
+};
+
+annotation Ui (module,parameter,rule) {
+	String title = "",
+	String image = "",
+	String description = "",
+	String help = ""
+};
+
+annotation Doc (module,parameter,rule) {
+	self String required
+};

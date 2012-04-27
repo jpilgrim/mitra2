@@ -1,0 +1,27 @@
+module FeatureAccess
+
+metamodel ecore SimpleER(ecoreFile="simpleER.ecore");
+
+called main() {
+    SimpleER::Schema schema;			// 0
+    schema = new SimpleER::Schema();		// 1
+    SimpleER::Entity entity;			// 2
+    entity = new SimpleER::Entity();		// 3
+    schema.entities += entity;			// 4
+    entity.name = schema.entities.size();	// 5
+    schema.entities->set(1, entity);		// 6
+    
+}
+
+called foo() {
+    SimpeER.Schema schema;
+    schema.eClass(); // feature access with method call
+    array(); // rule invocation
+}
+
+called array() {
+    SimpleER::Schema schema;
+    schema = new SimpleER::Schema();
+    Sequence(SimpleER::Entity) entities;
+    entites = schema.entities;
+}

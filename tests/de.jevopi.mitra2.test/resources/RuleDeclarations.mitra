@@ -1,0 +1,25 @@
+module RuleDeclarations
+
+metamodel ecore MM3(ecoreFile="simpleER.ecore", prop1="value1") replaces OLD0, OLD1;
+
+called rule0 ( ) {
+}
+
+called multi rule1 ( MM3::Schema par0 ) {
+}
+
+called multi rule2 ( MM3::Entity par0, MM3::Attribute par1, MM3::Entity par2): (return MM3::Schema ret0) {
+}
+
+called multi rule3 (MM3::Entity par0, MM3::Attribute par1, MM3::Entity par2): (return MM3::Schema ret0, return MM3::Schema ret1) {
+}
+
+called rule4 ( MM3::Schema par0 ) implements rule1(MM3::Schema), ruleX(MM3::Relationship) {
+}
+
+called rule5 ( MM3::Schema par0 )  
+    implements rule1(MM3::Schema)
+    overloads ruleX(MM3::Schema) {
+} 
+
+called ruleX ( MM3::Schema par0 ) {}

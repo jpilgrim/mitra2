@@ -1,0 +1,7 @@
+package mitra;
+module Log;
+
+// called debug(any obj) java(class="de.jevopi.mitra2.standardlibrary.mitra.Log");
+called info(any obj) java(class="de.jevopi.mitra2.standardlibrary.mitra.Log");
+// called warning(any obj) java(class="de.jevopi.mitra2.standardlibrary.mitra.Log");
+called severe(any obj) java(class="de.jevopi.mitra2.standardlibrary.mitra.Log");

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mitra2 Test
+Bundle-SymbolicName: de.jevopi.mitra2.test
+Bundle-Vendor: Jens von Pilgrim
+Bundle-Version: 0.1.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit,
+ org.eclipse.emf.ecore;bundle-version="2.6.1",
+ de.jevopi.mitra2;bundle-version="0.1.0",
+ org.eclipse.core.runtime,
+ org.eclipse.xtext;bundle-version="1.0.0",
+ org.eclipse.emf.mwe.utils;bundle-version="1.0.0",
+ de.jevopi.mitra2.traces;bundle-version="0.1.0"

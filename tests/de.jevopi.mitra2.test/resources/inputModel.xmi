@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<simpleER:Schema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:simpleER="http://feu.de/simpleER" xsi:schemaLocation="http://feu.de/simpleER simpleER.ecore" name="AddressBook">
+  <entities name="Person" relationships="//@relationships.0"/>
+  <entities name="Address"/>
+  <relationships target="//@entities.1" name="Office" source="//@entities.0"/>
+</simpleER:Schema>

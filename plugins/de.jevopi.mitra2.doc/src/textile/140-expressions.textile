@@ -1,0 +1,42 @@
+
+h1. Expressions
+
+
+h2. Boolean Expressions
+
+
+h2. Mathematical Expressions
+
+
+
+h2. Feature Access
+
+h3. Model Feature Access
+
+h4. Reflective Expressions
+
+h3. Native Operations
+
+h4. Iterator Expressions
+
+Iterator expressions are only allowed as arguments of selected native operations. All these operations are to be called on collections, however in some cases it is possible to call these operations on simple receivers (i.e., non collection objects) as these singletons are then interpreted as collections containing only the receiver objects itself. 
+
+The syntax definition is
+
+bc. LoopVariable "|" Expression
+
+Similar to the loop variable declaration in extended for loops, the type of the loop variable may be omitted and is then inferred from the receiver type. That is, if the receiver type is a collection, the type of the loop variable is inferred to the type of the collection elements; otherwise the type of the loop variable is the same type as the receiver type.
+If the type of the loop variable is not omitted, it has to be the same type as the inferred type would be, or a subtype.
+
+The iterator expression is called in combination with a native operation, such as
+
+bc. receiver->nativeOp( v | expression )
+
+or
+
+bc. receiver->nativeOp(my::type v | expression )
+
+If a native operations is called with an iterator expression, the expression is called for all elements contained in the receiver (i.e., the elements of collection, or with the receiver itself). If the loop variable is declared with a type, this
+type is used as a filter. That is, the expression is called only with elements which are equal or subtypes of the declared loop variable type (this is again similar to extended for loops).
+
+The result depends on the semantic of the native operation.

@@ -1,0 +1,73 @@
+
+h1. Statements
+
+h2. Local Variable Declarations
+
+h2. Loops
+
+h3. While and Do
+
+h3. For
+
+For-loops are quite similar to Java loops. There exist two variants of the for loop. The first one is the traditional loop
+
+bc. "for" "(" ForInit? ";" Expression? ";" ForUpdate? ")" statement=Statement;
+
+in which the init and parts are a comma separated list of statement expressions or, in case of the init part, loop variable declarations. The expression must return a boolean value, that is true or false. This is a simple example of a traditional for loop:
+
+bc. for (int i=0; i<10; i++) { out.println(i); }
+
+And another examples with more than loop variable and two statement expressions in the init and update parts respectively:
+
+bc. for (int i=0,j=0; i<10; i++, j++) { out.println(i*j); }
+
+When iterating over collections, Java provides a newer construct called the extended for loop. It's syntax definition is as follows:
+
+bc. "for" "(" LoopVariable ":" Expression ")" Statement;
+
+While the expression of the traditional for loop returns a boolean value, now it has to return a collection of elements of a type compatible to the  loop variable's type. The simplest form of expression fulfilling this constraints is a variable access to a collection of the appropriate type. 
+
+The following example iterates over a collection of strings:
+
+bc. for (String name: listOfNames) { out.println(name); }
+
+Mitra extends the Java version of the extended for loop in two ways. First, the type of the loop variable can be omitted, it is automatically inferred by Mitra from the declared element types of the collection. That is, the previous example could be written shorter as follows:
+
+bc. for (name: listOfNames) { out.println(name); }
+
+If the type of the loop variable is not omitted, it may be used as a type filter. In Java, the type of the loop variable must equal the declared type of the collection elements. In Mitra, the type must only be compatible, that is, it must be a sub or super type. If the loop variable type is a sub type of the collection element's type, all elements of the collection are ignored which actual type only is a super type of the loop varible type. This sound more complicated than it is . Let's have a look at a real example:
+
+bc.. for(emf::EClassifier eClassifier: ^package.eClassifiers) {
+	doSomething(eClassifier);
+}
+
+p. This loop iterates over all classifiers contained in an EMF ecore package. This is a simple loop, which would be look quite similar in Java. Supposed that we only want to iterate over the classes (i.e., @EClass@  instances) contained in the package, we would have to write in Java something like this:
+
+bc.. for(emf::EClassifier eClassifier: ^package.eClassifiers) {
+	if (eClassifier instanceof EClass) {
+		EClass eClass = (EClass) eClassifier;
+		doSomethingWithClass(eClass);
+	}
+}	
+	    
+p. Actually, you could write the very same code in Mitra. However, thanks to the implicit type filter, you can write it much shorter:
+
+bc.. for(emf::EClass eClass: ^package.eClassifiers) {
+	doSomethingWithClass(eClass);
+}
+
+p. Since @EClass@  is a sub type of @EClassifier@ , all elements of @^package.eClassifiers@ are ignored which are not instances of @EClass@.
+
+
+h2. Conditionals
+
+h3. If-Then-Else
+
+h3. Switch-Case
+
+h2. Rule Invocations 
+
+h3. Rule Invocation and multiple return parameters
+
+h3. Calling super
+

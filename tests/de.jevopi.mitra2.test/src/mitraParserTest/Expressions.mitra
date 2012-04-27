@@ -1,0 +1,13 @@
+module Expressions 
+
+metamodel ecore SimpleER(ecoreFile="some/simpleER.ecore");
+
+called prepostfix() {
+    SimpleER::Schema schema; // 0
+    ++schema;					// 1
+    schema--;					// 2
+    SimpleER::Entity entity; // 3
+    entity = schema.entities++; // 4
+    entity = ++schema.entities; // 5
+    entity = schema.entities;   // 6
+}

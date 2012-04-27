@@ -1,0 +1,20 @@
+/** Pure parser test, code is not executable */
+
+module Assignments 
+
+metamodel ecore SimpleER(ecoreFile="simpleER.ecore");
+
+called main() {
+/* [0] */	SimpleER::Schema schema;      
+/* [1] */	SimpleER::Entity entity; 
+/* [2] */	schema = new SimpleER::Schema();
+/* [3] */	schema.main=entity;
+/* [4] */	schema.name="Hallo";
+/* [5] */	schema.entites += entity;
+/* [6] */	schema.meta = entity.eClass().getName();
+/* [7] */   schema.temp = (SimpleER::Schema) rule();
+}
+
+called rule() SimpleER::Schema {
+}
+	

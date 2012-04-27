@@ -1,0 +1,11 @@
+h1. Structure
+
+h2. Rule- and Metamodel-Paths
+
+h2. Packages and Modules
+
+h3. Imports
+
+h3. Metamodel Declarations
+
+h3. Comments

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+
+	  
+  
+  	<!-- ***********************************************************************
+   	*
+   	* Locators and path computers
+   	*
+   	************************************************************************ -->
+   
+  <extension point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="de.jevopi.mitra2.debug.launch.MitraSourceLookupDirector"
+            id="de.jevopi.mitra2.debug.launch.MitraSourceLookupDirector"
+            name="de.jevopi.mitra2.debug.launch.MitraSourceLookupDirector">
+      </sourceLocator>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="de.jevopi.mitra2.debug.launch.MitraSourcePathComputerDelegate"
+            id="de.jevopi.mitra2.debug.launch.MitraSourcePathComputer">
+      </sourcePathComputer>
+   </extension>
+   
+   
+   	<!-- ***********************************************************************
+   	*
+   	* Model
+   	*
+   	************************************************************************ -->
+   
+   
+   <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+      <debugModelPresentation
+            class="de.jevopi.mitra2.debug.model.MitraDebugModelPresentation"
+            id="mitra.debugging">
+      </debugModelPresentation>
+   </extension>
+   
+   
+   
+   	<!-- ***********************************************************************
+   	*
+   	* Session launch
+   	*
+   	************************************************************************ -->
+
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunchDelegate"
+            delegateDescription="Launches an Mitra Interpreter Session, requires an external controller"
+            delegateName="Mitra Session Launcher"
+            id="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunch"
+            modes="run, debug"
+            name="Mitra Session"
+            sourceLocatorId="de.jevopi.mitra2.debug.launch.MitraSourceLookupDirector"
+            sourcePathComputerId="de.jevopi.mitra2.debug.launch.MitraSourcePathComputer">
+      </launchConfigurationType>
+  </extension>
+   
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunch"
+            icon="icons/launch_session.png"
+            id="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunch.Icon">
+      </launchConfigurationTypeImage>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunchConfigTabGroup"
+            id="mitraInterpreter.launchConfigurationTabGroup1"
+            type="mitraInterpreter.launchConfigurationType1">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabs">
+      <tab
+            class="de.jevopi.mitra2.debug.launch.session.MitraSessionLaunchConfigTabMain"
+            group="mitraInterpreter.launchConfigurationTabGroup1"
+            id="MitraslInterpreter.tab1"
+            name="Main">
+      </tab>
+   </extension>
+   -->
+   <!-- ***********************************************************************
+   	*
+   	* Standalone launch
+   	*
+   	************************************************************************ -->
+   
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchDelegate"
+            delegateDescription="Launches an Mitra Interpreter with given models"
+            delegateName="Mitra Standalone Launcher"
+            id="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunch"
+            modes="run, debug"
+            name="Mitra Standalone"
+            sourceLocatorId="de.jevopi.mitra2.debug.launch.MitraSourceLookupDirector"
+            sourcePathComputerId="de.jevopi.mitra2.debug.launch.MitraSourcePathComputer">
+      </launchConfigurationType>
+  </extension>
+   
+    
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunch"
+            icon="icons/launch_standalone.png"
+            id="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunch.Icon">
+      </launchConfigurationTypeImage>
+   </extension>
+    <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchConfigTabGroup"
+            description="Configuration of Mitra Standalone Launch"
+            id="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchConfigTabGroup"
+            type="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunch">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabs">
+      <tab
+            class="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchConfigTabMain"
+            group="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchConfigTabGroup"
+            id="de.jevopi.mitra2.debug.launch.standalone.MitraStandaloneLaunchConfigTabMain"
+            name="Main">
+      </tab>
+   </extension>
+   <!--
+  
+   
+   -->
+   
+   
+   
+   
+   
+   
+   	<!-- ***********************************************************************
+   	*
+   	* Editor related extensions, such as breakpoints
+   	*
+   	************************************************************************ -->
+   
+   
+   <!--  adaptableType="org.eclipse.ui.texteditor.ITextEditor"-->
+   <!--  adaptableType="org.eclipse.xtext.ui.editor.XtextEditor"-->
+    <extension
+          id="de.jevopi.mitra2.breakpointadapter"
+          point="org.eclipse.core.runtime.adapters">
+      <factory
+            class="de.jevopi.mitra2.debug.model.MitraBreakpointAdapterFactory"
+            adaptableType = "org.eclipse.ui.texteditor.ITextEditor">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
+   </extension>
+    
+   
+    <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            markerType="mitra.lineBreakpoint.marker"
+            class="de.jevopi.mitra2.debug.model.MitraLineBreakpoint"
+            id="mitra.lauch.MitraLineBreakpoint">
+      </breakpoint>
+   </extension>
+   <extension
+         id="mitra.lineBreakpoint.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.lineBreakpointMarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.editorActions">
+      <editorContribution
+            targetID="de.jevopi.mitra2.Mitra"
+            id="mitra.rulerActions">
+         <action
+               label="Not Used"
+               class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
+               style="push"
+               actionID="RulerDoubleClick"
+               id="mitra.doubleClickBreakpointAction"/>
+      </editorContribution>
+   </extension>
+  
+   
+   <!-- *****************************************************
+   -->
+    <!--
+ <extension
+       id="de.feu.mitra.interpreter.nature"
+       name="Mitra Nature"
+       point="org.eclipse.core.resources.natures">
+    <runtime>
+       <run
+             class="de.feu.mitra.interpreter.ui.MitraNature">
+       </run>
+    </runtime>
+    <builder id="mitra.interpreter.ui.MitraBuilder" /> 
+ </extension>
+ -->
+ 
+</plugin>
+

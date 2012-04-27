@@ -1,0 +1,19 @@
+import ecore;
+
+extension de::jevopi::mitra2::MitraAddObjectMethods;
+
+	
+process(xtext::GeneratedMetamodel this) :
+	process(ePackage)
+;
+
+process(ecore::EPackage p):
+	p.addJavaBodiesToString() ->
+	p.addNullValue("PPOperator");
+	
+	
+Void addNullValue(ecore::EPackage p, String toEnum): 
+	doAddNullValue( (ecore::EEnum) p.getEClassifier(toEnum) );
+	
+Void doAddNullValue(ecore::EEnum e):
+	JAVA de.jevopi.mitra2.MitraPostProcessorHelper.addNullValue(org.eclipse.emf.ecore.EEnum);

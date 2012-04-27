@@ -1,0 +1,7 @@
+module RuleDeclarationsAbstractNative 
+metamodel none MM3(prop0="value0", prop1="value1") replaces OLD0, OLD1;
+
+abstract rule0 ( MM3::t0 par0, MM3::t1 par1, MM3::t2 par2, MM3::r0);
+
+called rule1 ( MM3::t0 par0, MM3::t1 par1, MM3::t2 par2, MM3::r0)
+    native ( class="my.test.Rule", method="Simple");

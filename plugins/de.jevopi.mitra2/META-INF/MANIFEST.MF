@@ -1,0 +1,57 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mitra2 Model Transformation Language
+Bundle-Vendor: Jens von Pilgrim
+Bundle-Version: 0.1.0.qualifier
+Bundle-SymbolicName: de.jevopi.mitra2; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0",
+ org.eclipse.xtext.generator;bundle-version="2.0.0";resolution:=optional,
+ org.apache.commons.logging;resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ com.ibm.icu;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore;bundle-version="2.7.0",
+ org.eclipse.emf.common;bundle-version="2.7.0",
+ org.antlr.runtime;bundle-version="3.2.0",
+ org.eclipse.core.runtime;bundle-version="3.6.0",
+ org.eclipse.core.resources;bundle-version="3.6.0",
+ org.eclipse.emf.transaction;bundle-version="1.4.0",
+ org.eclipse.core.commands;bundle-version="3.6.0",
+ org.eclipse.emf.workspace;bundle-version="1.4.0",
+ de.jevopi.mitra2.traces;bundle-version="0.1.0"
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: de.jevopi.ecore.utils,
+ de.jevopi.mitra2,
+ de.jevopi.mitra2.api,
+ de.jevopi.mitra2.context,
+ de.jevopi.mitra2.engine,
+ de.jevopi.mitra2.engine.debug,
+ de.jevopi.mitra2.engine.interpreter,
+ de.jevopi.mitra2.exec,
+ de.jevopi.mitra2.formatting,
+ de.jevopi.mitra2.message,
+ de.jevopi.mitra2.metamodel,
+ de.jevopi.mitra2.metamodel.mitracollections,
+ de.jevopi.mitra2.mitra,
+ de.jevopi.mitra2.mitra.impl,
+ de.jevopi.mitra2.mitra.util,
+ de.jevopi.mitra2.mitra.weak,
+ de.jevopi.mitra2.nativeoperations,
+ de.jevopi.mitra2.nativeoperations.collections,
+ de.jevopi.mitra2.nativeoperations.collections.ordered,
+ de.jevopi.mitra2.parseTreeConstruction,
+ de.jevopi.mitra2.parser.antlr,
+ de.jevopi.mitra2.parser.antlr.internal,
+ de.jevopi.mitra2.scoping,
+ de.jevopi.mitra2.services,
+ de.jevopi.mitra2.util,
+ de.jevopi.mitra2.validation,
+ de.jevopi.mitra2.visitors,
+ de.jevopi.utils,
+ de.jevopi.xtext.utils,
+ de.jevopi.mitra2.parser.antlr.lexer
+

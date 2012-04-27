@@ -1,0 +1,24 @@
+/* File:  	ModuleB.mitra
+ * Project:	mitra.interpreter
+ * Date: 	Oct 15, 2008
+ * Author: 	Jens von Pilgrim
+ *
+ * Copyright 2012, Jens von Pilgrim
+ */
+
+/**
+ * Test module for include resolver. Included by C, D and F.
+ * 
+ * Test case: IncludeResolverTest
+ * Tested class: IncludeResolver
+ *
+ * @author Jens von Pilgrim
+*/
+module ModuleB 
+
+import ModuleA;
+
+called ruleB() {
+   ruleA();
+}
+

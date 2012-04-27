@@ -1,0 +1,4 @@
+
+h1. Mitra2 IDE
+
+!fig/mitra-ide.png! The Mitra2 IDE

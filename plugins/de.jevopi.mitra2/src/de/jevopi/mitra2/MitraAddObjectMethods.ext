@@ -1,0 +1,87 @@
+import ecore;
+
+
+Void addJavaBodiesToString(ecore::EPackage p):
+	let ecorePackage = p.getEcorePackage():
+
+p.getEClassifier("Module").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("MetamodelDeclaration").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("Property").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("RuleDeclaration").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("SimpleRuleReference").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("QualifiedRuleReference").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("SimpleParameterReference").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("QualifiedParameterReference").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("RuleInvocation").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("RuleInvocationSuper").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("ReferenceType").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("PrimitiveType").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("CollectionType").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("FormalParameter").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("ReturnParameter").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("VariableAccess").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("IntLiteral").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("RealLiteral").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("StringLiteral").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("BooleanLiteral").addToStringOperation(ecorePackage.getEClassifier("EString")) ->
+p.getEClassifier("Feature").addToStringOperation(ecorePackage.getEClassifier("EString"))
+;
+	
+	
+/* *****************************************************************************
+* Helper extensions
+***************************************************************************** */
+
+
+/*
+This is a hack in order to retrieve the ecore package itself. This is usually
+done with a Java extension, but I did not want to add a Java extension here.
+The trick is to retrieve the package by navigating to the container of an ecore
+type (here a String).
+*/
+cached ecore::EPackage getEcorePackage(ecore::EPackage p):
+	 (ecore::EPackage)
+	 (	((ecore::EClass) (p.getEClassifier("MetamodelDeclaration")))
+	 		.getEStructuralFeature("type").eType.eContainer
+	 );	
+	 
+	 
+create ecore::EOperation addToStringOperation(ecore::EClassifier c, ecore::EClassifier type):
+	setName("toString") ->
+	setEType(type) ->
+	eAnnotations.add(addBodyAnnotation(
+'if (eIsProxy()) return super.toString();
+return ToString.valueOf(this);')) ->
+	((ecore::EClass)c).eOperations.add(this);
+	
+	
+create ecore::EParameter createParameter(String name, ecore::EClassifier partype):
+	setName(name)->
+	setEType(partype);
+	
+	
+/*
+	public int hashCode() {
+		return CompareTo.hashCode(this);
+	}
+	public int compareTo(Object i_obj) {
+		return CompareTo.compareTo(this, i_obj);
+	}
+	public boolean equals(Object i_obj) {
+		return CompareTo.equals(i_obj);
+	}
+		
+*/
+	
+	
+
+create ecore::EAnnotation addBodyAnnotation(ecore::EOperation op, String strBody):
+	setSource("http://www.eclipse.org/emf/2002/GenModel") ->
+	this.createBody(strBody) ->
+	op.eAnnotations.add(this);
+
+
+create ecore::EStringToStringMapEntry createBody(ecore::EAnnotation anno, String strBody): 
+	setKey("body") ->
+	setValue(strBody) ->
+	anno.details.add(this);	 

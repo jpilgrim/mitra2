@@ -1,0 +1,16 @@
+module SelectTest 
+metamodel ecore SimpleER(ecoreFile="some/simpleER.ecore");
+
+called main() {
+    SimpleER::Schema schema;			// 0
+    schema = new SimpleER::Schema();		// 1
+    SimpleER::Entity entity;			// 2
+    Entity = new SimpleER::Entity();		// 3
+    schema.entities += entity;			// 4
+    entity.name = schema.entities.size();	// 5
+    schema.entities[1] = entity;		// 6
+    
+    var SimpleER::Entity se;				// 7
+    select first se from schema.entities; // 8
+    
+}

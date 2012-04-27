@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project name="de.jevopi.mitra2.doc" basedir="." default="all">
+    <!--
+    Copyright (c) 2012 Jens von Pilgrim and others
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+        Jens von Pilgrim <developer@jevopi.de>
+        
+    Parts of this build were taken from Wikitext and Minerva examples.
+-->
+    <description>Generate Mitra2 help content</description>
+    <!--
+    <echo message="compile classpath: ${compile_classpath}"/>
+    -->
+    <path id="wikitext.tasks.classpath">
+        <pathelement path="${compile_classpath}"/>
+    </path>
+    <taskdef classpathref="wikitext.tasks.classpath" resource="org/eclipse/mylyn/wikitext/core/util/anttask/tasks.properties"/>
+    <taskdef classpathref="wikitext.tasks.classpath" name="fop" classname="org.apache.fop.tools.anttasks.Fop"/>
+    
+    <property name="doc.build.dir" value="${basedir}/help" />
+	<property name="manual.title" value="Mitra2 Manual" />
+	<property name="manual.author" value="Jens von Pilgrim" />
+	
+    <target name="all" description="Generate help" depends="assemble">
+        <wikitext-to-eclipse-help 
+        		markupLanguage="org.eclipse.mylyn.wikitext.textile.core.TextileLanguage" 
+        	multipleOutputFiles="false" 
+        	navigationImages="true" 
+        	title="${manual.title}">
+            <fileset dir="${doc.build.dir}" includes="**/*.textile"/>
+            <!--  <stylesheet url="book.css"/>
+                  <stylesheet file="${basedir}/help/styles/main.css"/>
+                  -->
+        </wikitext-to-eclipse-help>
+        
+    	<!-- Verify generated docs -->
+        <echo level="info">
+        If validation fails it is because either the userguide source code is poorly formed, or the WikiText Textile parser has a bug
+        </echo>
+        <!-- 
+                   Don't bother with DTD validation: we only care if the files are well-formed.
+                   We therefore provide an empty DTD 
+                  -->
+    	<!-- 
+        <mkdir dir="__tmp"/>
+        <echo file="__tmp/__empty.dtd" message=""/>
+        <xmlvalidate lenient="true">
+            <fileset dir="${doc.build.dir}">
+                <include name="**/*.xml"/>
+            </fileset>
+            <fileset dir="${doc.build.dir}">
+                <include name="**/*.html"/>
+            </fileset>
+            <dtd publicid="-//W3C//DTD XHTML 1.0 Transitional//EN" location="${basedir}/__tmp/__empty.dtd"/>
+        </xmlvalidate>
+        <delete dir="__tmp"/>
+    	-->
+    	
+        <!-- and generate PDF via FO and FOP -->
+        <wikitext-to-xslfo markupLanguage="Textile"
+        	title="${manual.title}"
+    		author="${manual.author}"
+    		version="${manual.version}"
+        	panelText="true">
+            <fileset dir="${doc.build.dir}" includes="**/*.textile"/>
+        </wikitext-to-xslfo>
+        <fop format="application/pdf" outdir="${doc.build.dir}" messagelevel="debug">
+            <fileset dir="${doc.build.dir}" includes="**/*.fo"/>
+        </fop>
+    
+    </target>
+    
+    <target name="assemble">
+        <loadfile srcfile="src/textile/mitra2-index.txt" property="inputfiles">
+            <filterchain>
+                <tokenfilter>
+                    <replacestring from="\n" to=","/>
+                </tokenfilter>
+            </filterchain>
+        </loadfile>
+        <concat destfile="${doc.build.dir}/Mitra2.textile" append="false" fixlastline="yes">
+            <filelist dir="src/textile" files="${inputfiles}"/>
+        </concat>
+    	<copy todir="${doc.build.dir}/fig">
+    	    <fileset dir="src/textile/fig"/>
+    	</copy>
+    </target>
+</project>

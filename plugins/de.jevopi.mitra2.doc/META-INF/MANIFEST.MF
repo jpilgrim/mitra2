@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mitra2 Documentation
+Bundle-SymbolicName: de.jevopi.mitra2.doc;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: Jens von Pilgrim

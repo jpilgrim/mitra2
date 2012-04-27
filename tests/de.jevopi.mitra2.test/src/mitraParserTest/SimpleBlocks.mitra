@@ -1,0 +1,17 @@
+module SimpleBlocks 
+
+metamodel ecore MM3(ecoreFile="MM3.ecore") replaces OLD0, OLD1;
+metamodel ecore SimpleER(ecoreFile="simpleER.ecore");
+
+called rule0 ( MM3::t0 par0, MM3::t1 par1, MM3::t2 par2, MM3::t0) {
+    MM3::t0 lv0;
+    lv0 = par0;
+}
+
+called main() {
+    SimpleER::Schema schema;
+    schema = new SimpleER::Schema();
+    SimpleER::Entity entity;
+    entity = new SimpleER::Entity();
+    schema.entities += entity;
+}

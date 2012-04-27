@@ -1,0 +1,118 @@
+<!--
+  Copyright (c) 2012 Jens von Pilgrim
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+ 
+  Contributors:
+     Jens von Pilgrim - initial API and implementation
+ 
+Use old XML workflow format as MWE2 (as of Xtext 1.x) cannot process 
+integer properties.
+-->
+<workflow>
+	<property file="de/jevopi/mitra2/GenerateMitra2.properties"/>
+	
+	<property name="runtimeProject" value="../${projectName}"/>
+	              
+	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup"
+		scanClassPath="true" 
+		platformUri="${runtimeProject}/.."/>
+	
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" directory="${runtimeProject}/src-gen"/>
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" directory="${runtimeProject}.ui/src-gen"/>
+	
+	<component class="org.eclipse.xtext.generator.Generator">
+		<pathRtProject value="${runtimeProject}"/>
+		<pathUiProject value="${runtimeProject}.ui"/>
+		<projectNameRt value="${projectName}"/>
+		<projectNameUi value="${projectName}.ui"/>
+		
+		<language uri="${grammarURI}" fileExtensions="${file.extensions}">
+			<!-- Java API to access grammar elements (required by several other fragments) -->
+			<fragment class="org.eclipse.xtext.generator.grammarAccess.GrammarAccessFragment"/>
+			
+			<!-- generates Java API for the generated EPackages -->
+			<fragment class="org.eclipse.xtext.generator.ecore.EcoreGeneratorFragment"/>
+			
+			<!-- the serialization component -->
+			<fragment class="org.eclipse.xtext.generator.parseTreeConstructor.ParseTreeConstructorFragment"/>
+			
+			<!-- a custom ResourceFactory for use with EMF -->
+			<fragment class="org.eclipse.xtext.generator.resourceFactory.ResourceFactoryFragment" 
+				fileExtensions="${file.extensions}"/>
+				
+			<!-- the following fragment tries to use the Antlr Generator fragment which can be installed via update manager from http://download.itemis.com/updates -->
+			<!--
+			<fragment class="org.eclipse.xtext.generator.AntlrDelegatingFragment" />
+			-->
+			<fragment class="org.eclipse.xtext.generator.parser.antlr.XtextAntlrGeneratorFragment">
+			<!-- "de.itemis.xtext.antlr.XtextAntlrGeneratorFragment"> -->
+                    <options k="2" backtrack="true" memoize="true"/>
+            </fragment>
+			
+			<!-- If you don't want to use the Antlr fragment for some reason, remove the antlr fragment and uncomment the packrat parser fragment below.
+			<fragment class="org.eclipse.xtext.generator.parser.PackratParserFragment"/>
+			 -->
+	
+			
+			<!-- java-based API for validation -->
+			<fragment class="org.eclipse.xtext.generator.validation.JavaValidatorFragment">
+                <composedCheck value="org.eclipse.xtext.validation.ImportUriValidator"/>
+            </fragment>
+			
+            
+			<!-- scoping API -->
+			<!-- old:
+			<fragment class="org.eclipse.xtext.generator.scoping.JavaScopingFragment"/>
+			TODO
+			-->
+			<fragment class="org.eclipse.xtext.generator.exporting.SimpleNamesFragment" />
+			<fragment class="org.eclipse.xtext.generator.scoping.ImportNamespacesScopingFragment" />
+			
+			<fragment class="org.eclipse.xtext.generator.builder.BuilderIntegrationFragment" />
+			
+			<!-- formatter API -->
+			<fragment class="org.eclipse.xtext.generator.formatting.FormatterFragment"/>
+
+			<!-- labeling API -->
+			<fragment class="org.eclipse.xtext.ui.generator.labeling.LabelProviderFragment"/>
+
+			<!-- outline API --> 
+			<!-- Xtext 1.x 
+			<fragment class="org.eclipse.xtext.ui.generator.outline.TransformerFragment"/>
+			<fragment class="org.eclipse.xtext.ui.generator.outline.OutlineNodeAdapterFactoryFragment"/>
+			-->
+			<!-- Xtext 2.x -->
+			<fragment class="org.eclipse.xtext.ui.generator.outline.OutlineTreeProviderFragment"/>
+			
+			<fragment class="org.eclipse.xtext.ui.generator.outline.QuickOutlineFragment"/>
+			
+			<!-- quickfix API -->
+			<fragment class="org.eclipse.xtext.ui.generator.quickfix.QuickfixProviderFragment"/>
+			
+			<!-- java-based API for content assistance -->
+			<fragment class="org.eclipse.xtext.ui.generator.contentAssist.JavaBasedContentAssistFragment"/>
+			<!-- the following fragment tries to use the Antlr based content assist fragment which can be downloaded from http://www.itemis.com 
+			     and will be ignored if it's not available. -->
+			<!--
+			<fragment class="org.eclipse.xtext.generator.DelegatingGeneratorFragment" 
+				delegate="de.itemis.xtext.antlr.XtextAntlrUiGeneratorFragment"
+				message="You are generating without ANTLR. It is highly recommended to download and use the plugin 'de.itemis.xtext.antlr' \n\t using the update site http://download.itemis.com/updates/milestones.">
+			</fragment>
+			-->
+			<!-- Xtext 1.x
+			<fragment class="de.itemis.xtext.antlr.XtextAntlrUiGeneratorFragment">
+			 	<options k="4" backtrack="true" memoize="true"/>
+			</fragment>  
+			-->
+			<fragment class="org.eclipse.xtext.generator.parser.antlr.XtextAntlrUiGeneratorFragment">
+			 	<options k="4" backtrack="true" memoize="true"/>
+			</fragment>
+			
+			<!-- TODO: wizard, code templates, refactoring, compare --> 
+			
+		</language>
+	</component>
+</workflow>

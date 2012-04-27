@@ -1,0 +1,25 @@
+module Literals 
+	
+called main() {
+    /* 00 */ int anInt;
+    /* 01 */ int aNegInt;
+    /* 02 */ real aFloat;
+    /* 03 */ String aString;
+    /* 04 */ boolean aBooleanTrue;
+    /* 05 */ boolean aBooleanFalse;
+    /* 06 */ int iResult;
+    
+    /* 07 */ anInt = 1;
+    /* 08 */ aFloat = 3.14;
+    /* 09 */ aString = "Hello World";
+    /* 10 */ aBooleanTrue = true;
+    /* 11 */ aBooleanFalse = false;
+    /* 12 */ iResult = anInt - 2;
+    /* 13 */ iResult = anInt-2; // 13 == 12 !
+    /* 14 */ aFloat= - 3.14;
+    /* 15 */ aFloat= -3.14;  // 15==14 !
+    /* 16 */ aNegInt = - 1; 
+    /* 17 */ aNegInt = -1; 17==16 !
+
+			
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ (C) 2012 Jens von Pilgrim
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://mitra2.jevopi.de/traces"
+            class="de.jevopi.mitra2.traces.TracesPackage"
+            genModel="model/traces.genmodel"/>
+   </extension>
+
+</plugin>

@@ -1,0 +1,434 @@
+grammar de.jevopi.mitra2.Mitra with org.eclipse.xtext.common.Terminals
+
+generate mitra "http://www.jevopi.de/Mitra"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+// Rules and Types
+Module:
+	("package" packageName=FQN ";"?)?
+	"module" name=ID ";"
+	("import" imports+=ModuleReference ";")*
+	(metamodelDeclarations+=MetamodelDeclaration ";")*
+	(annotationDefinitions+=AnnotationsDefinition ";")*
+	((ruleDeclarations+=RuleDeclaration))*;
+
+ModuleReference:
+	module=[Module|FQN];
+
+	/** 
+* Fully qualified name for rules and return parameter mappings.
+* The ":" is used insteaf "." to distinguish feature access from rule calls.
+* A feature access must no start with a method call, thus 
+* <code>foo()</code> must be a rule call. <code>a.foo()</code> is a feature 
+* access, method <code>foo()</code> is called on object <code>a</code>.
+* On the other hand, <code>a:foo()</code> is a rule invocation, rule 
+* <code>foo()</code> is called in module <code>a</code>. 
+*
+* If both, feature access and rule calls, i.e. fully qualified names, were
+* using the same separator char, <code>a.foo()</code> could eigther be a 
+* feature access (method call on object a) or a rule invocation (rule foo in
+* module a).
+*/
+// FQN: parts+=ID (":" parts+=ID)*;			
+MetamodelDeclaration:
+	"metamodel" type=ID name=ID ("("
+	(properties+=Property ("," properties+=Property)*)?
+	")")? ("replaces" (replaces+=ID ("," replaces+=ID)*))?;
+
+Property:
+	name=ID "=" value=STRING;
+
+enum VisibilityModifier:
+	public | private;
+
+RuleDeclaration:
+	(annotations+=Annotation)*
+	(visibility=VisibilityModifier)? (exec=ExecutionModifier)
+	((traced?="traced") | (stealth?="stealth"))? (virtual?="virtual")? (multi?="multi")?
+	name=ID "(" (formalParameters+=FormalParameter ("," formalParameters+=FormalParameter)*)?
+	")"
+	(":" "(" returnParameters+=ReturnParameter ("," returnParameters+=ReturnParameter)* ")")?
+	("implements" implementedRules+=SimpleRuleReference ("," implementedRules+=SimpleRuleReference)*)?
+	("overrides" overriddenRule=SimpleRuleReference)? // only one rule can be overridden (see super call)
+	("excludedBy" excludingRules+=SimpleRuleReference ("," excludingRules+=SimpleRuleReference)*)?
+	(trigger=Trigger)?
+	((";") | (javaSpec=JavaSpec ";") | (body=Block));
+	// added: overloadingRules
+// added: triggeredRules
+RuleReference:
+	SimpleRuleReference | QualifiedRuleReference;
+	// added: ruleDeclaration=RuleDeclaration		
+SimpleRuleReference:
+	ruleDeclaration=[RuleDeclaration|FQN] "(" parameterReferences+=SimpleParameterReference (","
+	parameterReferences+=SimpleParameterReference)* ")"
+	(":" "(" returnReferences+=SimpleParameterReference ("," returnReferences+=SimpleParameterReference)* ")")?;
+
+QualifiedRuleReference:
+	ruleDeclaration=[RuleDeclaration|FQN] "(" parameterReferences+=QualifiedParameterReference (","
+	parameterReferences+=QualifiedParameterReference)* ")"
+	(":" "(" returnReferences+=QualifiedParameterReference ("," returnReferences+=QualifiedParameterReference)* ")")?;
+
+ParameterReference:
+	QualifiedParameterReference | SimpleParameterReference;
+
+SimpleParameterReference:
+	type=Type (name=ID)?;
+
+QualifiedParameterReference:
+	vardecl=TypedVarDeclaration;
+
+	// Trigger
+Trigger:
+	"trigger" "(" triggerRules+=QualifiedRuleReference ("," triggerRules+=QualifiedRuleReference)* ")"
+	("with" ^with=Block)?
+	("when" "("
+	when=Expression
+	")")?;
+
+JavaSpec:
+	"java" "(" properties+=Property ("," properties+=Property)* ")";
+
+	/**
+called is the default modifier is no modifier is sepcified
+*/
+enum ExecutionModifier:
+	called | abstract | manual | auto | confirm;
+
+Parameter:
+	FormalParameter | ReturnParameter;
+
+FormalParameter:
+	(annotations+=Annotation)*
+	(modifier=FormalParameterModifier)? vardecl=TypedVarDeclaration;
+
+ReturnParameter:
+	(annotations+=Annotation)*
+	(modifier=ReturnParameterModifier)? vardecl=TypedVarDeclaration;
+
+	/**
+use is the default value if nothing is specified
+*/
+enum FormalParameterModifier returns ParameterModifier:
+	use | from | into;
+
+	/**
+return is the default value if nothing is specified
+*/
+enum ReturnParameterModifier returns ParameterModifier:
+	return | create;
+
+Type:
+	PrimitiveType
+	| CollectionType
+	| ReferenceType;
+
+ReferenceType:
+	metamodelDeclaration=[MetamodelDeclaration] "::" eClassifier=[ecore::EClassifier];
+
+PrimitiveType:
+	primitiveType=PrimitiveTypeSpec;
+
+enum PrimitiveTypeSpec:
+	void="void" | any="any" | string="String" | int="int" | boolean="boolean" | real="real" | type="Type";
+
+CollectionType:
+	collectionType=CollectionTypeSpec ('(' typePar=Type ')')?;
+
+enum CollectionTypeSpec:
+	Collection | Set | OrderedSet | Bag | Sequence;
+
+	// -----------------------------------------------------------------------------
+// Rule Body with Statements	
+// -----------------------------------------------------------------------------
+Block:
+	{Block} "{" (statements+=BlockStatement)* "}";
+
+BlockStatement:
+	LocalVariableDeclarationStatement | Statement;
+
+Statement:
+	IfStatement |
+	ReturnStatement |
+	WhileStatement | DoStatement |
+	ForStatement | // ForEachStatement |
+	BreakStatement |
+	ThrowStatement | TryStatement |
+	ExpressionStatement |
+	EmptyStatement |
+	Block;
+
+LocalVariableDeclarationStatement:
+	localVariableDeclaration=LocalVariableDeclaration ";";
+
+LocalVariableDeclaration:
+	vardecl=TypedVarDeclaration ("=" expression=Expression)?;
+
+VarDeclaration:
+	TypedVarDeclaration | InferredVarDeclaration;
+
+TypedVarDeclaration:
+	type=Type name=ID;
+
+InferredVarDeclaration:
+	(type=Type)? name=ID;
+
+ExpressionStatement:
+	statementExpression=StatementExpression ";";
+
+StatementExpression:
+	ClassInstanceCreationExpression | RuleInvocation | RuleInvocationSuper |
+	StaticAccess |
+	(VariableAccess
+	(({Assignment.lhs+=current} operator=AssignmentOperator expression=Expression)
+	|
+	({Assignment.lhs+=current} ("," lhs+=VariableAccess)+ operator=AssignmentOperator expression=Expression))?);
+
+EmptyStatement:
+	{EmptyStatement} ";";
+
+ReturnStatement:
+	{ReturnStatement}
+	"return" (expression=Expression)? ";";
+
+IfStatement:
+	"if" "(" expression=Expression ")" trueStatement=Statement
+	("else" elseStatement=Statement)?;
+
+WhileStatement:
+	"while" "(" expression=Expression ")" statement=Statement;
+
+DoStatement:
+	"do" statement=Statement "while" "(" expression=Expression ")" ";";
+
+ForInit:
+	{ForInit}
+	(statementExpressions+=StatementExpression | varDeclarations+=LocalVariableDeclaration
+	("," statementExpressions+=StatementExpression | varDeclarations+=LocalVariableDeclaration)*)?;
+
+ForUpdate:
+	statementExpression+=StatementExpression ("," statementExpression+=StatementExpression)*;
+
+ForStatement:
+	"for" "("
+	((loopVariable=LoopVariable ":" expression=Expression)
+	|
+	((forInit=ForInit)? ";" (expression=Expression)? ";"
+	(forUpdate=ForUpdate)?))
+	")" statement=Statement;
+
+LoopVariable:
+	vardecl=VarDeclaration;
+
+BreakStatement:
+	{BreakStatement} "break" ";";
+
+ThrowStatement:
+	"throw" expression=Expression ";";
+
+TryStatement:
+	"try" tryBlock=Block (catches+=Catch)* ("finally" finallyBlock=Block)?;
+
+Catch:
+	"catch" "(" formalParameter=FormalParameter ")" block=Block;
+
+	// -----------------------------------------------------------------------------
+// Expressions	
+// -----------------------------------------------------------------------------
+Expression:
+	Expression_10;
+
+	// Iterator Expression, e.g., as in "collect(e|e.name)"
+Expression_10 returns Expression:
+	({IteratorExpression} variable=LoopVariable "|" expression=Expression_1)
+	| Expression_1;
+
+	/* *************
+* Infix expression:
+*************** */
+
+// Boolean operations	
+Expression_1 returns Expression:
+	Expression_2
+	({BooleanExpression.lhs=current} op=BooleanOperator rhs=Expression_2)*;
+	// short circuited and standard operators
+enum BooleanOperator:
+	and="&" | or="|" | andsc="&&" | orsc="||";
+
+	// Equality Expression
+Expression_2 returns Expression:
+	Expression_3
+	({EqualityExpression.lhs=current} op=EqualityOperator rhs=Expression_3)*;
+
+enum EqualityOperator:
+	eq="==" | neq="!=";
+
+	// Relational
+Expression_3 returns Expression:
+	Expression_5
+	({RelationalExpression.lhs=current} op=RelationalOperator rhs=Expression_5)*;
+
+enum RelationalOperator:
+	lt="<" | gt=">" | leq="<=" | geq=">=";
+
+	// In-Expression
+//Expression_4 returns Expression:
+//	Expression_5
+//	({InExpression.lhs=current} "in" rhs=Expression_5)*;
+
+	// Math-Expression
+Expression_5 returns Expression:
+	Expression_6
+	({MathExpression.lhs=current} op=MathOperator rhs=Expression_6)*;
+
+enum MathOperator:
+	add="+" | sub="-" | mul="*" | div="/";
+
+	// Unary expression:
+Expression_6 returns Expression:
+	({UnaryCastExpression} "(" type=Type ")" expression=Expression_7) | Expression_7;
+
+Expression_7 returns Expression:
+	Expression_8
+	| ({UnaryBooleanExpression} "!" expression=Expression_8);
+
+Expression_8 returns Expression:
+	Expression_9
+	| ({UnaryMathExpression} op=UnaryMathOperator expression=Expression_9);
+
+enum UnaryMathOperator:
+	plus="+" | minus="-";
+
+	// Instance of
+Expression_9 returns Expression:
+	Expression_11
+	({InstanceOfExpression.expression=current} "instanceof" type=Type)?;
+
+Expression_11 returns Expression:
+	"(" Expression ")" | TerminalExpression;
+
+TerminalExpression:
+	Literal | ClassInstanceCreationExpression | RuleInvocation | RuleInvocationSuper | StaticAccess | VariableAccess;
+
+Literal:
+	IntLiteral | RealLiteral | BooleanLiteral | StringLiteral | NullLiteral;
+	// intValue=UINT | stringValue=STRING| booleanValue="false" | booleanValue="true";
+StringLiteral:
+	stringValue=STRING;
+
+IntLiteral:
+	intValue=INT;
+
+RealLiteral:
+	floatValue=FLOAT;
+
+BooleanLiteral:
+	{BooleanLiteral} ((booleanValue?="true") | ("false"));
+
+NullLiteral:
+	{NullLiteral} "null";
+
+	// Lexer Rule
+// now already defined that way: terminal INT: ('0'..'9')+;
+terminal FLOAT:
+	('0'..'9')* '.' ('0'..'9')+;
+
+ClassInstanceCreationExpression:
+	"new" type=Type "(" (arguments+=Expression ("," arguments+=Expression)*)? ")";
+
+	// RuleInvocation
+RuleInvocation:
+	ruleDeclaration=[RuleDeclaration|FQN] "(" (arguments+=Expression ("," arguments+=Expression)*)? ")";
+
+RuleInvocationSuper:
+	{RuleInvocationSuper} "super";
+
+Feature:
+	MethodInvocation | FeatureField;
+
+MethodInvocation:
+	FeatureMethodInvocation | NativeOperationInvocation;
+
+FeatureMethodInvocation:
+	"."
+	(("<<" expression=Expression ">>") | name=ID)
+	"(" (arguments+=Expression ("," arguments+=Expression)*)? ")";
+
+NativeOperationInvocation:
+	"->" name=ID "(" (arguments+=Expression ("," arguments+=Expression)*)? ")";
+
+MetamodelFeature:
+	FeatureMethodInvocation | FeatureField;
+
+FeatureField:
+	"." (("<<" expression=Expression ">>") | name=ID);
+
+VariableAccess:
+	((prefixOperator=PPOperator variable=[VarDeclaration]
+	(features+=Feature)*)
+	|
+	(variable=[VarDeclaration]
+	(features+=Feature)*
+	(("default" default=Expression) | postfixOperator=PPOperator)?));
+
+StaticAccess:
+	"$" (("<<" expression=Expression ">>") | type=Type)
+	(features+=Feature)*;
+
+enum AssignmentOperator:
+	set="=" | add="+=" | sub="-=";
+
+	// Null is added by preprocessor		
+enum PPOperator:
+	inc="++" | dec="--";
+
+	/** 
+* Fully qualified name for rules and return parameter mappings.
+* The ":" is used instead "." to distinguish feature access from rule calls.
+* A feature access must no start with a method call, thus 
+* <code>foo()</code> must be a rule call. <code>a.foo()</code> is a feature 
+* access, method <code>foo()</code> is called on object <code>a</code>.
+* On the other hand, <code>a:foo()</code> is a rule invocation, rule 
+* <code>foo()</code> is called in module <code>a</code>. 
+*
+* If both, feature access and rule calls, i.e. fully qualified names, were
+* using the same separator char, <code>a.foo()</code> could eigther be a 
+* feature access (method call on object a) or a rule invocation (rule foo in
+* module a).
+*/
+FQN:
+	ID (":" ID)*;
+
+// -----------------------------------------------------------------------------
+// Annotations
+// -----------------------------------------------------------------------------
+AnnotationsDefinition:
+	(annotationDecls+=AnnotationDecl)+;
+
+	/**
+ * Annotation Declaration
+ */
+AnnotationDecl:
+	"annotation" name=ID 
+	("(" targets+=AnnotationTargetSpec (","targets+=AnnotationTargetSpec)* ")")?
+	"{"
+	((("self" valuetype=PrimitiveType (many?="*")? (required?="required" | ("="default=Literal))) | (propertyDecls+=AnnotationPropertyDecl))
+	("," propertyDecls+=AnnotationPropertyDecl)*)?
+	"}";
+	
+enum AnnotationTargetSpec: module | rule | parameter;
+
+AnnotationPropertyDecl:
+	type=PrimitiveType name=ID (required?="required" | ("="default=Literal));
+
+/**
+ * Annotation
+ */
+Annotation:
+	"@" decl=[AnnotationDecl] ("("
+	(values+=Literal | properties+=AnnotationProperty)
+	("," (values+=Literal | properties+=AnnotationProperty))*
+	")")?;
+
+AnnotationProperty:
+	decl=[AnnotationPropertyDecl] "=" value=Literal;
+	

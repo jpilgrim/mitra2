@@ -1,0 +1,6 @@
+.DS_Store
+plugins/de.jevopi.mitra2.ui/bin
+plugins/de.jevopi.mitra2.debug/bin
+plugins/de.jevopi.mitra2/bin
+repository/target/
+target/

@@ -1,0 +1,52 @@
+module Test
+metamodel ecore mymeta(ecoreFile="simpleER.ecore");
+metamodel uml2 uml();
+metamodel ecore test(ecoreFile="simpleUML.ecore");
+metamodel ecore test2(nsUri="http://www.eclipse.org/emf/2002/Tree");
+
+called main(mymeta::Schema schema): (create test::Package package) {
+	package.name = schema.name;
+	String s = schema.name;
+}
+
+
+called ruleA(mymeta::Attribute b) {
+	test2::TreeNode tn;
+	tn.children.children;
+}
+
+called ruleA(int a, int x) {
+	
+}
+
+called ruleA(int a, real x) {
+	
+}
+
+called ruleA(mymeta::Attribute a, mymeta::Relationship x2) {
+	uml::Class c;
+	c.nestedClassifier.generalization.general.name;
+}
+
+called  ruleA(int i) {
+	
+}
+
+called ruleA(String s) {
+	// myrule(s);
+}
+
+called myrule(mymeta::Schema schema) {
+	ruleA();
+	ruleA(1);
+	ruleA("Hallo");
+	ruleA(1,2);
+	real f = "Hallo";
+	String s = 1;
+	s = "Hallo";
+	ruleA(1,f);
+}
+
+called ruleA() {
+ 	ruleA();	
+}

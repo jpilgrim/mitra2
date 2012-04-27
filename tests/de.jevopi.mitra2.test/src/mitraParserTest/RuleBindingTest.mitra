@@ -1,0 +1,29 @@
+module RuleBindingTest 
+
+metamodel ecore CH ( ecoreFile="src/models/ClassHierarchy.ecore" );
+
+public called test() {
+
+    CH::A a = new CH::A();
+    CH::B b = new CH::B();
+    CH::C c = new CH::C();
+    CH::D d = new CH::D();
+    CH::E e = new CH::E();
+    CH::F d = new CH::F();
+    CH::G g = new CH::G();
+    
+    rule(a);
+    rule(b);
+    rule(c);
+    rule(d);	
+    
+}
+
+called out(String message) native(class="mitra.Log");
+
+
+public called multi rule(CH::A a) {
+    out("a: " + a.toString());	
+}
+
+
