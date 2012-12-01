@@ -62,6 +62,7 @@ import de.jevopi.xtext.utils.XtextUtils;
  */
 public class MitraUtils {
 
+	public static final char FQN_SEPARATOR_CHAR = ':';
 	public static final String FQN_SEPARATOR = ":";
 
 	/**
@@ -335,12 +336,12 @@ public class MitraUtils {
 	}
 
 	public static String convertFQNToPathName(String fqnModuleName) {
-		return fqnModuleName.replaceAll(FQN_SEPARATOR, File.separator)
+		return fqnModuleName.replace(FQN_SEPARATOR_CHAR, File.separatorChar)
 			+ ".mitra";
 	}
 
 	public static String getFQModuleName(String fqnRule) {
-		int pos = fqnRule.lastIndexOf(FQN_SEPARATOR);
+		int pos = fqnRule.lastIndexOf(FQN_SEPARATOR_CHAR);
 		if (pos <= 0)
 			throw new IllegalArgumentException(
 				"Qualified name does not contains a module name: " + fqnRule);
@@ -348,7 +349,7 @@ public class MitraUtils {
 	}
 
 	public static String getSimpleRuleName(String fqnRule) {
-		int pos = fqnRule.lastIndexOf(FQN_SEPARATOR);
+		int pos = fqnRule.lastIndexOf(FQN_SEPARATOR_CHAR);
 		if (pos <= 0) return fqnRule; // name is already simple
 		return fqnRule.substring(pos + 1);
 	}

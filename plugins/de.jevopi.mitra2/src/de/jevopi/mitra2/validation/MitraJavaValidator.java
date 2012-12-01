@@ -40,8 +40,9 @@ public class MitraJavaValidator extends AbstractMitraJavaValidator {
 		if (!hasContext(module)) return;
 		Resource resource = module.eResource();
 		if (resource != null) {
-			if (!resource.getURI().lastSegment()
-				.equals(module.getName() + ".mitra")) {
+			String resourceName = resource.getURI().lastSegment();
+			String moduleNameWithExt = module.getName() + ".mitra";
+			if (!resourceName.equals(moduleNameWithExt)) {
 				error("Module and resource name must be equal", module, module
 					.eClass().getEStructuralFeature(MitraPackage.MODULE__NAME),
 						-1);

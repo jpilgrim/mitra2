@@ -60,8 +60,7 @@ public class ParserTest {
 
 	public EObject load(String strURIFileName) throws IOException {
 
-		URI uri = URI.createFileURI(strURIFileName);
-		uri =
+		URI uri =
 			projectContext.getPathHandler().resolve(ResourceType.MODULE,
 					strURIFileName);
 		Resource res = projectContext.getResourceSet().createResource(uri);
@@ -108,7 +107,7 @@ public class ParserTest {
 
 	@Test
 	public void testResourceLoading() throws IOException {
-		EObject m = load(FileUtils.toOS(MITRA_PATH + "EmptyModule.mitra"));
+		EObject m = load(MITRA_PATH + "EmptyModule.mitra");
 		assertNotNull(m);
 	}
 
