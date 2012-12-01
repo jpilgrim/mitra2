@@ -26,6 +26,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
+import de.jevopi.utils.FileUtils;
+
 /**
  * MitraSessionLaunchConfigTabMain
  * 
@@ -104,8 +106,10 @@ public class MitraSessionLaunchConfigTabMain extends
 		String[] filterExtensions = { dslFilter };
 		fileDialog.setFilterExtensions(filterExtensions);
 		fileDialog.open();
-		String mitraFile = fileDialog.getFilterPath() + "/"
-				+ fileDialog.getFileName();
+		String mitraFile = 
+				FileUtils.toOS(
+				fileDialog.getFilterPath() + "/"
+				+ fileDialog.getFileName());
 		selectOAWFileText.setText(mitraFile);
 
 	}

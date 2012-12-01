@@ -1,5 +1,8 @@
 package de.jevopi.mitra2;
 
+import java.io.File;
+import java.net.URI;
+
 import org.eclipse.emf.mwe.utils.DirectoryCleaner;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.emf.mwe2.runtime.workflow.Workflow;
@@ -55,6 +58,8 @@ public class GenerateMitra2 {
 
 				addComponent(new DirectoryCleaner() {
 					{
+						
+						
 						setDirectory("" + runtimeProject + "/src-gen");
 					}
 				});

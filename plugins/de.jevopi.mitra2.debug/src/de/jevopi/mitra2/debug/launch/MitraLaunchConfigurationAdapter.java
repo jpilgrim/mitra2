@@ -26,6 +26,7 @@ import de.jevopi.mitra2.mitra.Module;
 import de.jevopi.mitra2.mitra.Parameter;
 import de.jevopi.mitra2.mitra.RuleDeclaration;
 import de.jevopi.mitra2.mitra.Type;
+import de.jevopi.utils.FileUtils;
 
 /**
  * Adapts a {@link ILaunchConfiguration} for providing type and property save
@@ -276,7 +277,7 @@ public class MitraLaunchConfigurationAdapter {
 			}
 			return false;
 		}
-		File f = new File(filename);
+		File f = new File(FileUtils.toOS(filename));
 		if (!f.exists()) {
 			if (fileDescription != null) {
 				setErrorMessage(fileDescription + " file not found.");

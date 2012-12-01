@@ -60,6 +60,7 @@ import de.jevopi.mitra2.mitra.ParameterModifier;
 import de.jevopi.mitra2.mitra.ReturnParameter;
 import de.jevopi.mitra2.mitra.RuleDeclaration;
 import de.jevopi.mitra2.mitra.VisibilityModifier;
+import de.jevopi.utils.FileUtils;
 
 /**
  * Dialog for configuring Mitra standalone launch.
@@ -315,7 +316,7 @@ public class MitraStandaloneLaunchConfigTabMain extends
 			@Override
 			public void modifyText(ModifyEvent event) {
 				String name = textModuleFileName.getText();
-				File f = new File(name);
+				File f = new File(FileUtils.toOS(name));
 				if (f.exists()) {
 					updateModulePathAndRules(name);
 				}

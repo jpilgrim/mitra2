@@ -40,6 +40,7 @@ import de.jevopi.mitra2.context.ProjectContext;
 import de.jevopi.mitra2.message.IMessageAcceptor;
 import de.jevopi.mitra2.mitra.Module;
 import de.jevopi.mitra2.mitra.ReferenceType;
+import de.jevopi.utils.FileUtils;
 
 /**
  * @author Jens von Pilgrim (developer@jevopi.de)
@@ -88,7 +89,7 @@ public class ParserTest {
 
 		projectContext = new ProjectContext();
 
-		File f = new File(MITRA_PATH);
+		File f = new File(FileUtils.toOS(MITRA_PATH));
 		String strPath = f.getAbsolutePath();
 
 		projectContext.getPathHandler().addPath(ResourceType.METAMODEL,
@@ -107,7 +108,7 @@ public class ParserTest {
 
 	@Test
 	public void testResourceLoading() throws IOException {
-		EObject m = load(MITRA_PATH + "EmptyModule.mitra");
+		EObject m = load(FileUtils.toOS(MITRA_PATH + "EmptyModule.mitra"));
 		assertNotNull(m);
 	}
 

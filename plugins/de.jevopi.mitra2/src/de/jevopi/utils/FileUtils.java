@@ -16,6 +16,8 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
+
 /**
  * @author Jens von Pilgrim (developer@jevopi.de)
  * @since Jan 27, 2012
@@ -53,5 +55,9 @@ public class FileUtils {
 		}
 	}
 	
+	
+	public static String toOS(String path) {
+		return URI.createFileURI(path).toFileString();
+	}
 	
 }
