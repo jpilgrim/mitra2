@@ -156,8 +156,10 @@ public class PathHandler {
 					result.add(uri);
 				}
 			} else {
-				throw new UnsupportedOperationException(path.scheme()
-						+ " scheme not supported yet");
+				System.err.println
+				//throw new UnsupportedOperationException
+				(path.scheme()
+						+ " scheme of " + path + " not supported yet, skip this path");
 			}
 
 		}
