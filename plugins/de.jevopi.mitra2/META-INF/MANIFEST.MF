@@ -53,6 +53,5 @@ Export-Package: de.jevopi.ecore.utils,
  de.jevopi.mitra2.validation,
  de.jevopi.mitra2.visitors,
  de.jevopi.utils,
- de.jevopi.xtext.utils,
- de.jevopi.mitra2.parser.antlr.lexer
+ de.jevopi.xtext.utils
 
