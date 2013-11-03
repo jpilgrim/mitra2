@@ -523,9 +523,9 @@ public class MitraStandaloneLaunchConfigTabMain extends
 		// reload with project context
 		projectContext.getPathHandler().clear();
 		projectContext.getPathHandler().addPath(ResourceType.MODULE,
-				PathHandler.createBaseURI(modulePath));
+				PathHandler.createFileBaseURI(modulePath));
 		projectContext.getPathHandler().addPath(ResourceType.METAMODEL,
-				PathHandler.createBaseURI(modulePath));
+				PathHandler.createFileBaseURI(modulePath));
 		URI uriModule =
 			projectContext.getPathHandler().resolve(ResourceType.MODULE,
 					computedModulePath);

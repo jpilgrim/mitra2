@@ -102,9 +102,16 @@ public class PathHandler {
 
 	public static URI createBaseURI(String uriAsString) {
 		URI uri = URI.createURI(uriAsString);
-		if (uri.isRelative()) {
+		// TODO this is a hack:
+		if (uri.isRelative()|
+				(uriAsString.length()>1 && uriAsString.charAt(1)==':') ) {
 			uri = URI.createFileURI(uriAsString);
 		}
+		return uri;
+	}
+	
+	public static URI createFileBaseURI(String fileuriAsString) {
+		URI uri = URI.createFileURI(fileuriAsString);
 		return uri;
 	}
 
